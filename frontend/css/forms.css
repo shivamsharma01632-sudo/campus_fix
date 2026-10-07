@@ -1,0 +1,124 @@
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-label-hint {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border-dark);
+  background-color: #ffffff;
+  color: var(--color-text-main);
+  font-size: 15px;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-focus);
+}
+
+.form-input.tinted {
+  background-color: #f0f4fc;
+  border-color: #e2e8f0;
+}
+
+.form-input.tinted:focus {
+  background-color: #ffffff;
+  border-color: var(--color-primary);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+  background-color: #f8fafc;
+}
+
+.form-textarea:focus {
+  background-color: #ffffff;
+}
+
+.prompt-chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.prompt-chip {
+  padding: 7px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border-dark);
+  background-color: #ffffff;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.prompt-chip:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.file-upload-box {
+  border: 2px dashed var(--color-border-dark);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #fafbfc;
+  transition: all var(--transition-fast);
+}
+
+.file-upload-box:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  background-color: var(--color-bg-page);
+  border-radius: var(--radius-sm);
+}
+
+.form-error-msg {
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  display: none;
+  margin-top: 4px;
+}
+
+.has-error .form-input, .has-error .form-textarea {
+  border-color: #ef4444;
+}
+
+.has-error .form-error-msg {
+  display: block;
+}

@@ -1,0 +1,52 @@
+<!-- CampusFix Reusable Navbar Component -->
+<nav class="navbar">
+  <a href="../index.html" class="brand-wrapper">
+    <img src="../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+    <span class="brand-title">CampusFix</span>
+  </a>
+
+  <!-- Role Navigation Links -->
+  <div class="navbar-center">
+    <!-- Student Navigation -->
+    <div class="nav-role-group" data-role="STUDENT">
+      <a href="../pages/student/dashboard.html" class="nav-pill-btn active">Report</a>
+      <a href="../pages/student/my-tickets.html" class="nav-pill-btn">My tickets</a>
+      <a href="../pages/student/profile.html" class="nav-pill-btn">Profile</a>
+    </div>
+
+    <!-- Technician Navigation -->
+    <div class="nav-role-group" data-role="TECHNICIAN">
+      <a href="../pages/technician/dashboard.html" class="nav-pill-btn active">Dashboard</a>
+      <a href="../pages/technician/assigned-tickets.html" class="nav-pill-btn">My Tasks</a>
+      <a href="../pages/technician/profile.html" class="nav-pill-btn">Profile</a>
+    </div>
+
+    <!-- Admin Navigation -->
+    <div class="nav-role-group" data-role="ADMIN">
+      <a href="../pages/admin/dashboard.html" class="nav-pill-btn active">Dashboard</a>
+      <a href="../pages/admin/tickets.html" class="nav-pill-btn">Tickets</a>
+      <a href="../pages/admin/technicians.html" class="nav-pill-btn">Technicians</a>
+      <a href="../pages/admin/departments.html" class="nav-pill-btn">Departments</a>
+      <a href="../pages/admin/assets.html" class="nav-pill-btn">Assets & IoT</a>
+      <a href="../pages/admin/analytics.html" class="nav-pill-btn">Analytics</a>
+      <a href="../pages/admin/chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+      <a href="../pages/admin/sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+      <a href="../pages/admin/settings.html" class="nav-pill-btn">Settings</a>
+    </div>
+  </div>
+
+  <!-- Right Actions -->
+  <div class="navbar-right">
+    <div class="user-badge">
+      <span class="user-badge-name" id="nav-user-name">Test12345</span>
+      <span class="user-badge-role" id="nav-user-role">Student</span>
+    </div>
+    <a href="#" class="nav-signout-btn">
+      <img src="../assets/icons/signout.svg" class="icon icon-sm" alt="Sign out">
+      <span>Sign out</span>
+    </a>
+    <button class="nav-menu-toggle" aria-label="Toggle Navigation">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</nav>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspect Incident — CampusFix Admin</title>
+  <meta name="description" content="Admin inspection, technician reassignment, and SLA audit.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/tickets.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar -->
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Subnav Pills -->
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn active">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn">Settings</a>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <a href="tickets.html" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--color-text-muted);">
+          &larr; Back to tickets registry
+        </a>
+      </div>
+
+      <!-- Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span class="ticket-id-pill" id="adm-ticket-id">CF-1001</span>
+            <span id="adm-status-badge"></span>
+            <span id="adm-priority-badge"></span>
+          </div>
+          <h1 class="page-title" id="adm-ticket-title" style="font-size: 26px;">Incident Title</h1>
+          <p class="page-subtitle" id="adm-ticket-meta" style="margin-bottom: 0;">Reported 10h ago</p>
+        </div>
+
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn btn-outline" id="adm-btn-delete" style="color: #ef4444; border-color: #ef4444;">
+            Delete Incident
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Layout -->
+      <div class="ticket-detail-grid">
+        <div class="ticket-detail-main">
+          <!-- Admin Dispatch & Reassignment Form -->
+          <div class="card" style="border-left: 4px solid var(--color-brand-purple);">
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Executive Dispatch Control</h3>
+            
+            <form id="adm-dispatch-form">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Assigned Technician</label>
+                  <select id="adm-select-tech" class="form-select">
+                    <option value="Marcus Vance">Marcus Vance (Electrical)</option>
+                    <option value="Elena Rostova">Elena Rostova (Civil & Plumbing)</option>
+                    <option value="David Chen">David Chen (HVAC)</option>
+                    <option value="Sarah Jenkins">Sarah Jenkins (IT & Networks)</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">SLA Target (Hours)</label>
+                  <input type="number" id="adm-sla-hours" class="form-input" min="1" max="72" value="4">
+                </div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Priority Override</label>
+                  <select id="adm-select-priority" class="form-select">
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                    <option value="Critical">Critical</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 0;">
+                  <label class="form-label">Override Status</label>
+                  <select id="adm-select-status" class="form-select">
+                    <option value="Open">Open</option>
+                    <option value="Assigned">Assigned</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="padding: 10px 24px;">
+                Update Dispatch Settings
+              </button>
+            </form>
+          </div>
+
+          <!-- Description Card -->
+          <div class="ticket-info-card">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">Incident Description</h3>
+            <p id="adm-description" style="font-size: 14.5px; line-height: 1.6;">Description text.</p>
+          </div>
+
+          <!-- Audit Timeline -->
+          <div class="ticket-info-card">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Audit Trail & Dispatch Log</h3>
+            <div id="adm-timeline-stream"></div>
+          </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="ticket-detail-sidebar">
+          <div class="ticket-info-card">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Campus Facility Specs</h3>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Location:</span>
+              <span class="triage-metric-value" id="adm-location">Room 118</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Department:</span>
+              <span class="triage-metric-value" id="adm-dept">Electrical Maintenance</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Asset:</span>
+              <span class="triage-metric-value" id="adm-asset">FAN-118-A</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Reporter:</span>
+              <span class="triage-metric-value" id="adm-reporter">Alex Mercer</span>
+            </div>
+          </div>
+
+          <!-- AI Confidence Badge -->
+          <div class="card" style="background: #fafbfc; border: 1px solid var(--color-border);">
+            <div style="font-size: 12px; font-weight: 700; color: var(--color-brand-purple); margin-bottom: 6px;">
+              AI AUTO-TRIAGE TELEMETRY
+            </div>
+            <p style="font-size: 13px; color: var(--color-text-muted); line-height: 1.5;">
+              Classified with <strong>98.4%</strong> confidence. Auto-routed via semantic natural language embeddings.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const ticketId = urlParams.get('id') || 'CF-1001';
+
+      let ticket = await API.getTicketById(ticketId);
+      if (!ticket) {
+        UTILS.showToast('Incident record not found', 'error');
+        return;
+      }
+
+      document.getElementById('adm-ticket-id').textContent = ticket.id;
+      document.getElementById('adm-ticket-title').textContent = ticket.title;
+      document.getElementById('adm-ticket-meta').textContent = `Reported ${UTILS.formatTimeAgo(ticket.createdAt)} by ${ticket.studentName || 'Student'}`;
+      document.getElementById('adm-description').textContent = ticket.description;
+      document.getElementById('adm-location').textContent = ticket.location;
+      document.getElementById('adm-dept').textContent = ticket.department;
+      document.getElementById('adm-asset').textContent = ticket.assetTag || 'General Asset';
+      document.getElementById('adm-reporter').textContent = `${ticket.studentName || 'Student'} (${ticket.reportedBy})`;
+
+      document.getElementById('adm-status-badge').innerHTML = UTILS.getStatusBadgeHtml(ticket.status);
+      document.getElementById('adm-priority-badge').innerHTML = UTILS.getPriorityBadgeHtml(ticket.priority);
+
+      // Pre-fill Dispatch Controls
+      const techSelect = document.getElementById('adm-select-tech');
+      if (ticket.assignedTech) techSelect.value = ticket.assignedTech;
+      document.getElementById('adm-sla-hours').value = ticket.slaHours || 4;
+      document.getElementById('adm-select-priority').value = ticket.priority || 'High';
+      document.getElementById('adm-select-status').value = ticket.status;
+
+      renderTimeline(ticket.timeline || []);
+
+      // Dispatch Form Submit
+      document.getElementById('adm-dispatch-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const updated = await API.updateTicket(ticket.id, {
+          assignedTech: techSelect.value,
+          slaHours: parseInt(document.getElementById('adm-sla-hours').value),
+          priority: document.getElementById('adm-select-priority').value,
+          status: document.getElementById('adm-select-status').value,
+          statusNote: `Executive dispatch updated by Chief Admin`
+        });
+
+        ticket = updated;
+        document.getElementById('adm-status-badge').innerHTML = UTILS.getStatusBadgeHtml(ticket.status);
+        document.getElementById('adm-priority-badge').innerHTML = UTILS.getPriorityBadgeHtml(ticket.priority);
+        renderTimeline(ticket.timeline || []);
+        UTILS.showToast('Dispatch configuration saved', 'success');
+      });
+
+      // Delete Button
+      document.getElementById('adm-btn-delete').addEventListener('click', async () => {
+        if (confirm(`Are you sure you want to delete ticket ${ticket.id}?`)) {
+          await API.deleteTicket(ticket.id);
+          UTILS.showToast(`Ticket ${ticket.id} deleted`, 'info');
+          setTimeout(() => window.location.href = 'tickets.html', 500);
+        }
+      });
+
+      function renderTimeline(timeline) {
+        const el = document.getElementById('adm-timeline-stream');
+        if (!el) return;
+        el.innerHTML = timeline.map(item => `
+          <div class="activity-item">
+            <div class="activity-avatar">
+              <img src="../../assets/icons/sparkles.svg" class="icon icon-sm" alt="">
+            </div>
+            <div class="activity-content">
+              <div>
+                <span class="activity-author">${item.status}</span>
+                <span class="activity-time">&bull; ${item.timestamp}</span>
+              </div>
+              <div class="activity-text">${UTILS.escapeHtml(item.note)}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

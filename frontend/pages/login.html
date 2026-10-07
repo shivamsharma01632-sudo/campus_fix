@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In — CampusFix</title>
+  <meta name="description" content="Sign in to CampusFix to report facility issues or manage maintenance operations.">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/navbar.css">
+  <link rel="stylesheet" href="../css/forms.css">
+  <link rel="stylesheet" href="../css/cards.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas" style="align-items: center; justify-content: space-between;">
+      <!-- Top Navbar matching Screenshot 2 -->
+      <header class="navbar">
+        <a href="../index.html" class="brand-wrapper">
+          <img src="../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-right">
+          <a href="login.html" class="btn btn-primary" id="login-nav-btn">
+            <img src="../assets/icons/signout.svg" class="icon icon-sm" style="transform: rotate(180deg); filter: brightness(0) invert(1);" alt="">
+            <span>Sign in</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Center Login Form Box -->
+      <section style="width: 100%; max-width: 440px; margin: 30px auto; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <!-- Segmented Toggle (Student vs College Staff) -->
+        <div class="segmented-control" id="role-toggle-group">
+          <button type="button" class="seg-btn active" id="btn-toggle-student">
+            <img src="../assets/icons/student.svg" class="icon icon-sm" alt="">
+            <span>Student</span>
+          </button>
+          <button type="button" class="seg-btn" id="btn-toggle-staff">
+            <img src="../assets/icons/staff.svg" class="icon icon-sm" alt="">
+            <span>College staff</span>
+          </button>
+        </div>
+
+        <!-- Login Card -->
+        <div class="card" style="width: 100%; border-radius: var(--radius-xl); padding: 36px 32px; box-shadow: var(--shadow-card-hover);">
+          <h1 style="font-size: 24px; font-weight: 800; margin-bottom: 6px; color: var(--color-text-heading);" id="login-title">Welcome back</h1>
+          <p style="font-size: 13.5px; color: var(--color-text-muted); margin-bottom: 24px;" id="login-desc">
+            Students sign in to report campus issues.
+          </p>
+
+          <form id="login-form">
+            <div class="form-group">
+              <input type="email" id="login-email" class="form-input" placeholder="student@campus.edu" value="tester123@gmail.com" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 24px;">
+              <input type="password" id="login-password" class="form-input tinted" placeholder="Password" value="password123" required>
+            </div>
+
+            <!-- Optional Staff Role Mode Selection (Only visible when staff selected) -->
+            <div id="staff-role-selector" style="display: none; margin-bottom: 20px;">
+              <label class="form-label" style="font-size: 13px;">Staff Access View</label>
+              <select id="staff-subrole" class="form-select" style="font-size: 13.5px; padding: 10px 14px;">
+                <option value="technician">Technician (Maintenance Operations)</option>
+                <option value="admin">Administrator (Executive Facility Dashboard)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full" style="height: 48px; font-size: 15px; border-radius: var(--radius-pill); font-weight: 700;" id="login-submit-btn">
+              Sign in
+            </button>
+          </form>
+
+          <div style="text-align: center; margin-top: 24px; font-size: 13.5px; color: var(--color-text-muted);">
+            New here? <a href="register.html" style="color: var(--color-brand-purple); font-weight: 600; text-decoration: underline;" id="link-create-account">Create an account</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer style="text-align: center; color: var(--color-text-subtle); font-size: 13px; padding-top: 10px;">
+        CampusFix &bull; AI-Powered Campus Facility Management
+      </footer>
+    </main>
+  </div>
+
+  <script src="../js/config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      let activeRole = 'student';
+      const studentToggle = document.getElementById('btn-toggle-student');
+      const staffToggle = document.getElementById('btn-toggle-staff');
+      const loginDesc = document.getElementById('login-desc');
+      const emailInput = document.getElementById('login-email');
+      const staffRoleSelector = document.getElementById('staff-role-selector');
+      const staffSubrole = document.getElementById('staff-subrole');
+
+      // Check query param for pre-selection
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('role') === 'staff') {
+        selectRole('technician');
+      }
+
+      function selectRole(role) {
+        activeRole = role;
+        if (role === 'student') {
+          studentToggle.classList.add('active');
+          staffToggle.classList.remove('active');
+          loginDesc.textContent = 'Students sign in to report campus issues.';
+          emailInput.value = 'tester123@gmail.com';
+          staffRoleSelector.style.display = 'none';
+        } else {
+          staffToggle.classList.add('active');
+          studentToggle.classList.remove('active');
+          loginDesc.textContent = 'Staff sign in to open the live maintenance dashboard.';
+          emailInput.value = 'tech@campus.edu';
+          staffRoleSelector.style.display = 'block';
+        }
+      }
+
+      studentToggle.addEventListener('click', () => selectRole('student'));
+      staffToggle.addEventListener('click', () => selectRole('technician'));
+
+      document.getElementById('login-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        const password = document.getElementById('login-password').value;
+        
+        let roleToSet = activeRole;
+        if (activeRole !== 'student') {
+          roleToSet = staffSubrole.value;
+        }
+
+        const user = AUTH.login(email, password, roleToSet);
+        UTILS.showToast(`Signed in as ${user.name} (${user.role})`, 'success');
+
+        setTimeout(() => {
+          if (roleToSet === 'student') {
+            window.location.href = 'student/dashboard.html';
+          } else if (roleToSet === 'technician') {
+            window.location.href = 'technician/dashboard.html';
+          } else {
+            window.location.href = 'admin/dashboard.html';
+          }
+        }, 500);
+      });
+    });
+  </script>
+</body>
+</html>

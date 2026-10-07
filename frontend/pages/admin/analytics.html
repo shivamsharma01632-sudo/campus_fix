@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facility Analytics & Intelligence — CampusFix Admin</title>
+  <meta name="description" content="Visual maintenance metrics, MTTR performance, and AI dispatch telemetry.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/analytics.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn active">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn">Settings</a>
+      </div>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Executive Facility Analytics</h1>
+        </div>
+      </div>
+
+      <!-- Analytics Grid -->
+      <div class="analytics-grid">
+        <!-- Chart 1: Weekly Incident Volume (Pure SVG Chart) -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">7-Day Ticket Volume &amp; Resolution</span>
+            <span class="badge badge-tag">Last 7 Days</span>
+          </div>
+          <div class="svg-chart-container" id="volume-chart-container">
+            <!-- Rendered by js/admin/analytics.js -->
+          </div>
+        </div>
+
+        <!-- Chart 2: Category Breakdown Donut / Circular Gauge -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Incidents by Discipline</span>
+            <span class="badge badge-tag">Distribution</span>
+          </div>
+          <div class="donut-chart-wrapper">
+            <div class="circular-gauge" id="category-donut">
+              <svg viewBox="0 0 100 100" width="140" height="140">
+                <circle cx="50" cy="50" r="40" stroke="#f1f5f9" stroke-width="12" fill="none" />
+                <circle cx="50" cy="50" r="40" stroke="#9d2b86" stroke-width="12" stroke-dasharray="251.2" stroke-dashoffset="65" fill="none" />
+                <circle cx="50" cy="50" r="40" stroke="#df8e25" stroke-width="12" stroke-dasharray="251.2" stroke-dashoffset="180" fill="none" />
+              </svg>
+              <div class="circular-gauge-center">
+                <div class="circular-gauge-value">98.4%</div>
+                <div class="circular-gauge-label">Accuracy</div>
+              </div>
+            </div>
+
+            <div style="font-size: 13px; display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 12px; height: 12px; border-radius: 3px; background: #9d2b86;"></span>
+                <span>AV &amp; Electrical (40%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 12px; height: 12px; border-radius: 3px; background: #df8e25;"></span>
+                <span>Civil &amp; Plumbing (30%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 12px; height: 12px; border-radius: 3px; background: #10b981;"></span>
+                <span>HVAC &amp; Climate (18%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="width: 12px; height: 12px; border-radius: 3px; background: #6366f1;"></span>
+                <span>IT &amp; Networks (12%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Card 3: SLA Performance Summary -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">SLA Compliance by Department</span>
+            <span class="badge badge-resolved">94.2% Overall</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 10px;">
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                <span>Campus IT &amp; Networks</span>
+                <span>98.1%</span>
+              </div>
+              <div class="sla-meter">
+                <div class="sla-meter-fill success" style="width: 98.1%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                <span>Electrical Maintenance</span>
+                <span>96.2%</span>
+              </div>
+              <div class="sla-meter">
+                <div class="sla-meter-fill success" style="width: 96.2%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                <span>HVAC Operations</span>
+                <span>94.0%</span>
+              </div>
+              <div class="sla-meter">
+                <div class="sla-meter-fill warning" style="width: 94%;"></div>
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600;">
+                <span>Civil &amp; Plumbing</span>
+                <span style="color: #b91c1c;">88.5% (Action Required)</span>
+              </div>
+              <div class="sla-meter">
+                <div class="sla-meter-fill danger" style="width: 88.5%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metric Card 4: MTTR Speed Metrics -->
+        <div class="chart-card">
+          <div class="chart-header">
+            <span class="chart-title">Mean Time to Repair (MTTR)</span>
+            <span class="badge badge-tag">Target: &le; 4.0h</span>
+          </div>
+
+          <div style="padding: 10px 0;">
+            <div class="sparkline-row">
+              <span class="font-bold">Average First Response</span>
+              <span style="color: #10b981; font-weight: 700;">14 mins</span>
+            </div>
+            <div class="sparkline-row">
+              <span class="font-bold">Average Repair Turnaround</span>
+              <span style="color: var(--color-primary); font-weight: 700;">3.6 Hours</span>
+            </div>
+            <div class="sparkline-row">
+              <span class="font-bold">AI Dispatch Accuracy</span>
+              <span style="color: var(--color-brand-purple); font-weight: 700;">98.4%</span>
+            </div>
+            <div class="sparkline-row">
+              <span class="font-bold">Student Satisfaction Rating</span>
+              <span style="color: #10b981; font-weight: 700;">4.85 / 5.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/admin/analytics.js"></script>
+</body>
+</html>

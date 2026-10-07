@@ -1,0 +1,75 @@
+:root {
+  /* Colors */
+  --color-primary: #df8e25;
+  --color-primary-hover: #c97914;
+  --color-primary-light: #fef5e7;
+  --color-primary-focus: rgba(223, 142, 37, 0.25);
+  
+  --color-brand-pink: #fdf2f8;
+  --color-brand-pink-border: #fbcfe8;
+  --color-brand-purple: #9d2b86;
+  --color-brand-purple-light: #fae8f5;
+  --color-brand-purple-dark: #701a75;
+  
+  --color-bg-page: #f8f9fa;
+  --color-bg-card: #ffffff;
+  --color-bg-input: #f4f6fb;
+  --color-bg-tag: #f3f4f6;
+  
+  --color-border: #f0f0f4;
+  --color-border-dark: #e5e7eb;
+  --color-border-active: #df8e25;
+  
+  --color-text-main: #18181b;
+  --color-text-heading: #09090b;
+  --color-text-muted: #71717a;
+  --color-text-subtle: #a1a1aa;
+  
+  /* Status & Severity Colors */
+  --status-open-bg: #fef3c7;
+  --status-open-text: #b45309;
+  --status-assigned-bg: #ede9fe;
+  --status-assigned-text: #6d28d9;
+  --status-progress-bg: #ede9fe;
+  --status-progress-text: #7c3aed;
+  --status-resolved-bg: #dcfce7;
+  --status-resolved-text: #15803d;
+  --status-overdue-bg: #fee2e2;
+  --status-overdue-text: #b91c1c;
+  
+  --priority-high-bg: #fee2e2;
+  --priority-high-text: #dc2626;
+  --priority-medium-bg: #ffedd5;
+  --priority-medium-text: #ea580c;
+  --priority-low-bg: #f3f4f6;
+  --priority-low-text: #4b5563;
+
+  /* Typography */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: 'SF Mono', Consolas, Monaco, monospace;
+  
+  /* Radii */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 2px 10px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-bounce: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  
+  /* Layout Sizing */
+  --navbar-height: 72px;
+  --sidebar-width: 250px;
+  --max-content-width: 1280px;
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Details — CampusFix</title>
+  <meta name="description" content="View ticket status, timeline, and technician notes.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/tickets.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require STUDENT session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('STUDENT');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center">
+          <a href="dashboard.html" class="nav-pill-btn">Report</a>
+          <a href="my-tickets.html" class="nav-pill-btn active">My tickets</a>
+          <a href="profile.html" class="nav-pill-btn">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Test12345</span>
+            <span class="user-badge-role" id="nav-user-role">Student</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Back Link -->
+      <div style="margin-bottom: 16px;">
+        <a href="my-tickets.html" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: var(--color-text-muted);">
+          &larr; Back to all tickets
+        </a>
+      </div>
+
+      <!-- Ticket Main Header -->
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+            <span class="ticket-id-pill" id="detail-ticket-id">CF-1002</span>
+            <span id="detail-status-badge"></span>
+            <span id="detail-priority-badge"></span>
+          </div>
+          <h1 class="page-title" id="detail-title" style="font-size: 26px;">Ticket Title</h1>
+          <p class="page-subtitle" id="detail-reported-meta" style="margin-bottom: 0;">Reported 10h ago by Student</p>
+        </div>
+
+        <div style="text-align: right;" id="detail-sla-box">
+          <div style="font-size: 12px; font-weight: 600; color: var(--color-text-muted);">SLA TARGET</div>
+          <div style="font-size: 20px; font-weight: 800; color: var(--color-primary);" id="detail-sla-timer">4 Hours</div>
+        </div>
+      </div>
+
+      <!-- Progression Timeline -->
+      <div class="card" style="margin-bottom: 28px; padding: 20px 24px;">
+        <div class="status-timeline" id="detail-timeline">
+          <div class="timeline-step completed" id="step-open">
+            <div class="timeline-circle">&check;</div>
+            <span class="timeline-label">Open</span>
+          </div>
+          <div class="timeline-step completed" id="step-assigned">
+            <div class="timeline-circle">&check;</div>
+            <span class="timeline-label">Assigned</span>
+          </div>
+          <div class="timeline-step active" id="step-progress">
+            <div class="timeline-circle">3</div>
+            <span class="timeline-label">In Progress</span>
+          </div>
+          <div class="timeline-step" id="step-resolved">
+            <div class="timeline-circle">4</div>
+            <span class="timeline-label">Resolved</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grid: Left Details & Conversation, Right Info Panel -->
+      <div class="ticket-detail-grid">
+        <div class="ticket-detail-main">
+          <!-- Issue Description Card -->
+          <div class="ticket-info-card">
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Issue Description</h3>
+            <p id="detail-description" style="font-size: 14.5px; color: var(--color-text-main); line-height: 1.6; margin-bottom: 16px;">
+              Description text here.
+            </p>
+
+            <div id="detail-image-box" style="display: none; margin-top: 14px; padding: 12px; border-radius: var(--radius-md); background: #f8fafc; border: 1px solid var(--color-border);">
+              <span style="font-size: 12px; font-weight: 600; color: var(--color-text-muted);">ATTACHED MEDIA:</span>
+              <div id="detail-image-name" style="font-size: 13.5px; font-weight: 700; color: var(--color-brand-purple); margin-top: 4px;">image.jpg</div>
+            </div>
+          </div>
+
+          <!-- Activity & Messages Thread -->
+          <div class="ticket-info-card">
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px;">Activity & Updates</h3>
+            <div id="activity-stream">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Post Followup Form -->
+            <form id="add-comment-form" style="margin-top: 20px; display: flex; gap: 10px;">
+              <input type="text" id="comment-input" class="form-input" placeholder="Type a message or inquiry for the technician..." required>
+              <button type="submit" class="btn btn-primary" style="flex-shrink: 0;">Send</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="ticket-detail-sidebar">
+          <div class="ticket-info-card">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px;">Facility Metadata</h3>
+            
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Location</span>
+              <span class="triage-metric-value" id="meta-location">Room 304</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Department</span>
+              <span class="triage-metric-value" id="meta-department">Electrical Maintenance</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Assigned Tech</span>
+              <span class="triage-metric-value" id="meta-tech" style="color: var(--color-brand-purple);">Marcus Vance</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Asset Tag</span>
+              <span class="triage-metric-value" id="meta-asset">Optoma Projector P-304</span>
+            </div>
+          </div>
+
+          <!-- Chronic Issue Warning if applicable -->
+          <div class="chronic-alert-card" id="detail-chronic-card" style="display: none;">
+            <div class="chronic-alert-title">Repeated Failure Detected</div>
+            <div class="chronic-alert-subtitle">7 failures in the last 30 days</div>
+            <div class="chronic-alert-box">
+              CampusFix AI flagged this asset as chronic. An escalated replacement audit has been recommended to facility administrators.
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/student/ticket-details.js"></script>
+</body>
+</html>

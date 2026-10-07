@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Settings — CampusFix Admin</title>
+  <meta name="description" content="Configure AI auto-triage dispatch rules, SLA thresholds, and backend endpoints.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn active">Settings</a>
+      </div>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">System &amp; AI Triage Settings</h1>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1000px; margin-top: 14px;">
+        <!-- Card 1: AI Triage Heuristics -->
+        <div class="card">
+          <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 16px;">AI Auto-Routing Rules</h3>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <div style="font-weight: 700; font-size: 14px;">Autonomous Auto-Dispatch</div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Assign tickets automatically without manual review</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <div style="font-weight: 700; font-size: 14px;">Chronic Defect Detection Threshold</div>
+              <div style="font-size: 12px; color: var(--color-text-muted);">Flag assets with &ge;3 breakdowns in 30 days</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Minimum AI Confidence Score</label>
+            <input type="range" class="form-input" min="80" max="99" value="95" id="conf-slider" style="padding: 0;">
+            <div style="display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-muted);">
+              <span>80%</span>
+              <span id="conf-val" style="font-weight: 700; color: var(--color-primary);">95%</span>
+              <span>99%</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="UTILS.showToast('AI dispatch heuristics saved', 'success')">
+            Save Heuristics
+          </button>
+        </div>
+
+        <!-- Card 2: Backend Integration & Mock Data Reset -->
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 17px; font-weight: 800; margin-bottom: 16px;">Backend API Integration</h3>
+            <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 16px;">
+              Configured for seamless transition to future <strong>Node.js + Express + MySQL</strong> backend.
+            </p>
+
+            <div class="form-group">
+              <label class="form-label">API Base Endpoint</label>
+              <input type="text" class="form-input" id="cfg-api-url" value="http://localhost:5000/api">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Storage Engine</label>
+              <input type="text" class="form-input" value="Active: LocalStorage Mock (MySQL schema ready)" readonly style="background: #f8fafc;">
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--color-border); padding-top: 18px; margin-top: 16px;">
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #b91c1c;">Demo State Management</div>
+            <p style="font-size: 12px; color: var(--color-text-muted); margin-bottom: 12px;">
+              Reset all tickets, technicians, and assets to the pristine demonstration state matching the screenshots.
+            </p>
+            <button type="button" class="btn btn-secondary" onclick="resetDemoData()" style="color: #b91c1c; border-color: #fca5a5;">
+              Reset Seed Data to Match Screenshots
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script>
+    const slider = document.getElementById('conf-slider');
+    const val = document.getElementById('conf-val');
+    slider.addEventListener('input', () => {
+      val.textContent = `${slider.value}%`;
+    });
+
+    function resetDemoData() {
+      localStorage.removeItem(CONFIG.STORAGE_KEYS.TICKETS);
+      localStorage.removeItem(CONFIG.STORAGE_KEYS.TECHNICIANS);
+      localStorage.removeItem(CONFIG.STORAGE_KEYS.DEPARTMENTS);
+      localStorage.removeItem(CONFIG.STORAGE_KEYS.ASSETS);
+      UTILS.showToast('Seed data restored to pristine screenshot state!', 'success');
+      setTimeout(() => window.location.href = 'dashboard.html', 700);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Tickets — CampusFix Admin</title>
+  <meta name="description" content="Search, filter, and manage all campus facility tickets.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/tables.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar -->
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Subnav Pills -->
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn active">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn">Settings</a>
+      </div>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Campus Tickets Registry</h1>
+        </div>
+
+        
+        <button class="btn btn-primary" id="btn-export-csv">
+          <img src="../../assets/icons/filter.svg" class="icon icon-sm" style="filter: brightness(0) invert(1);" alt="">
+          <span>Export CSV</span>
+        </button>
+      </div>
+
+      <!-- Advanced Filter Row -->
+      <div class="filter-toolbar" style="margin-top: 20px;">
+        <div class="search-input-wrapper">
+          <img src="../../assets/icons/search.svg" class="icon icon-sm" alt="">
+          <input type="text" id="admin-search-input" class="form-input" placeholder="Search by ticket ID, room, student, or equipment...">
+        </div>
+
+        <select id="filter-dept-select" class="form-select" style="width: auto; min-width: 190px;">
+          <option value="ALL">All Departments</option>
+          <option value="Electrical Maintenance">Electrical Maintenance</option>
+          <option value="Civil & Plumbing">Civil & Plumbing</option>
+          <option value="HVAC Operations">HVAC Operations</option>
+          <option value="Campus IT & Networks">Campus IT & Networks</option>
+        </select>
+
+        <select id="filter-status-select" class="form-select" style="width: auto; min-width: 150px;">
+          <option value="ALL">All Statuses</option>
+          <option value="Open">Open</option>
+          <option value="Assigned">Assigned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+        </select>
+      </div>
+
+      <!-- Tickets Data Table -->
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>TICKET</th>
+              <th>ISSUE</th>
+              <th>CATEGORY</th>
+              <th>LOCATION</th>
+              <th>DEPARTMENT</th>
+              <th>ASSIGNED TECH</th>
+              <th>PRIORITY</th>
+              <th>STATUS</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tickets-full-tbody">
+            <!-- Rendered by js/admin/tickets.js -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/admin/tickets.js"></script>
+</body>
+</html>
