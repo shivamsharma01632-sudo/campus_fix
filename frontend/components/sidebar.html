@@ -1,0 +1,81 @@
+<!-- CampusFix Sidebar Component (Role-Aware) -->
+<aside class="admin-sidebar" id="campusfix-sidebar">
+  <!-- Student Navigation (visible only to STUDENT) -->
+  <div class="sidebar-role-group" data-role="STUDENT">
+    <div class="admin-sidebar-section-title">Student Portal</div>
+    <a href="../pages/student/dashboard.html" class="admin-nav-item">
+      <img src="../assets/icons/report-issue.svg" class="icon" alt="">
+      <span>Report Issue</span>
+    </a>
+    <a href="../pages/student/my-tickets.html" class="admin-nav-item">
+      <img src="../assets/icons/tickets.svg" class="icon" alt="">
+      <span>My Tickets</span>
+    </a>
+    <a href="../pages/student/profile.html" class="admin-nav-item">
+      <img src="../assets/icons/profile.svg" class="icon" alt="">
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <!-- Technician Navigation (visible only to TECHNICIAN) -->
+  <div class="sidebar-role-group" data-role="TECHNICIAN">
+    <div class="admin-sidebar-section-title">Technician Portal</div>
+    <a href="../pages/technician/dashboard.html" class="admin-nav-item">
+      <img src="../assets/icons/dashboard.svg" class="icon" alt="">
+      <span>Dashboard</span>
+    </a>
+    <a href="../pages/technician/assigned-tickets.html" class="admin-nav-item">
+      <img src="../assets/icons/tickets.svg" class="icon" alt="">
+      <span>My Tasks</span>
+    </a>
+    <a href="../pages/technician/profile.html" class="admin-nav-item">
+      <img src="../assets/icons/profile.svg" class="icon" alt="">
+      <span>Profile</span>
+    </a>
+  </div>
+
+  <!-- Admin Navigation (visible only to ADMIN) -->
+  <div class="sidebar-role-group" data-role="ADMIN">
+    <div class="admin-sidebar-section-title">Core Operations</div>
+    <a href="../pages/admin/dashboard.html" class="admin-nav-item">
+      <img src="../assets/icons/dashboard.svg" class="icon" alt="">
+      <span>Dashboard</span>
+    </a>
+    <a href="../pages/admin/tickets.html" class="admin-nav-item">
+      <img src="../assets/icons/tickets.svg" class="icon" alt="">
+      <span>Tickets</span>
+    </a>
+    <a href="../pages/admin/technicians.html" class="admin-nav-item">
+      <img src="../assets/icons/technician.svg" class="icon" alt="">
+      <span>Technicians</span>
+    </a>
+    <a href="../pages/admin/departments.html" class="admin-nav-item">
+      <img src="../assets/icons/departments.svg" class="icon" alt="">
+      <span>Departments</span>
+    </a>
+
+    <div class="admin-sidebar-section-title">Plant & Assets</div>
+    <a href="../pages/admin/assets.html" class="admin-nav-item">
+      <img src="../assets/icons/assets.svg" class="icon" alt="">
+      <span>Assets & IoT</span>
+    </a>
+    <a href="../pages/admin/chronic-issues.html" class="admin-nav-item">
+      <img src="../assets/icons/chronic-issues.svg" class="icon" alt="">
+      <span>Chronic Issues</span>
+    </a>
+    <a href="../pages/admin/sla-monitor.html" class="admin-nav-item">
+      <img src="../assets/icons/sla.svg" class="icon" alt="">
+      <span>SLA Monitor</span>
+    </a>
+
+    <div class="admin-sidebar-section-title">Intelligence</div>
+    <a href="../pages/admin/analytics.html" class="admin-nav-item">
+      <img src="../assets/icons/analytics.svg" class="icon" alt="">
+      <span>Analytics</span>
+    </a>
+    <a href="../pages/admin/settings.html" class="admin-nav-item">
+      <img src="../assets/icons/settings.svg" class="icon" alt="">
+      <span>Settings</span>
+    </a>
+  </div>
+</aside>

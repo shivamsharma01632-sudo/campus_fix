@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CampusFix — AI-Driven Campus Facility Management</title>
+  <meta name="description" content="Report campus maintenance issues in one line. AI sorts it, locates the room, and auto-dispatches the right technician.">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas" style="justify-content: space-between;">
+      <!-- Top Navbar matching Screenshot 1 -->
+      <header class="navbar">
+        <a href="index.html" class="brand-wrapper">
+          <img src="assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-right">
+          <a href="pages/login.html" class="btn btn-primary" id="landing-signin-btn">
+            <img src="assets/icons/signout.svg" class="icon icon-sm" style="transform: rotate(180deg); filter: brightness(0) invert(1);" alt="">
+            <span>Sign in</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- Center Hero Section -->
+      <section style="max-width: 800px; margin: 40px auto; text-align: center; width: 100%;">
+        <h1 class="page-title" style="font-size: 38px; margin-bottom: 14px; font-weight: 800;">Something broken on campus?</h1>
+        <p class="page-subtitle" style="font-size: 16px; max-width: 580px; margin: 0 auto 48px auto; line-height: 1.6;">
+          Tell us in one line. AI sorts it, finds the room, sets the priority and sends it to the right team in seconds.
+        </p>
+
+        <!-- Two Role Cards matching Screenshot 1 -->
+        <div class="role-cards-container flex gap-24" style="text-align: left; max-width: 720px; margin: 0 auto;">
+          <!-- Student Card -->
+          <a href="pages/login.html?role=student" class="role-card" id="student-portal-card">
+            <div class="icon-circle">
+              <img src="assets/icons/student.svg" class="icon icon-md" alt="Student">
+            </div>
+            <div>
+              <h2 class="role-card-title">I'm a student</h2>
+              <p class="role-card-desc">Sign in with your college details to report an issue.</p>
+            </div>
+            <span class="role-card-link">Continue &rarr;</span>
+          </a>
+
+          <!-- College Staff Card -->
+          <a href="pages/login.html?role=staff" class="role-card" id="staff-portal-card">
+            <div class="icon-circle">
+              <img src="assets/icons/staff.svg" class="icon icon-md" alt="Staff">
+            </div>
+            <div>
+              <h2 class="role-card-title">I'm college staff</h2>
+              <p class="role-card-desc">Sign in to open the live maintenance dashboard.</p>
+            </div>
+            <span class="role-card-link">Continue &rarr;</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Minimal Bottom Pad -->
+      <footer style="text-align: center; color: var(--color-text-subtle); font-size: 13px; padding-top: 20px;">
+        &copy; 2026 CampusFix &bull; AI-Powered Campus Facility Management
+      </footer>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/utils.js"></script>
+</body>
+</html>

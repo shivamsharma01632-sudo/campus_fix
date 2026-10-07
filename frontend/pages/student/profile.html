@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Profile — CampusFix</title>
+  <meta name="description" content="View and manage your student profile and facility preferences.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require STUDENT session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('STUDENT');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center">
+          <a href="dashboard.html" class="nav-pill-btn">Report</a>
+          <a href="my-tickets.html" class="nav-pill-btn">My tickets</a>
+          <a href="profile.html" class="nav-pill-btn active">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Test12345</span>
+            <span class="user-badge-role" id="nav-user-role">Student</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Student Profile</h1>
+          <p class="page-subtitle">Manage campus residence details and issue notification channels.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 900px;">
+        <div class="card">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Account Details</h3>
+          
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="prof-name" class="form-input" value="Alex Mercer">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">College Email</label>
+            <input type="email" id="prof-email" class="form-input" value="tester123@gmail.com" readonly style="background-color: #f8fafc;">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Campus Residence / Room</label>
+            <input type="text" id="prof-room" class="form-input" value="Hostel Block A, Room 204">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Major / Department</label>
+            <input type="text" id="prof-dept" class="form-input" value="Computer Science & Engineering">
+          </div>
+
+          <button type="button" class="btn btn-primary" onclick="UTILS.showToast('Profile information updated', 'success')">
+            Save Changes
+          </button>
+        </div>
+
+        <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Notification Preferences</h3>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <div>
+                <div style="font-size: 14px; font-weight: 600;">Email Status Alerts</div>
+                <div style="font-size: 12px; color: var(--color-text-muted);">Receive immediate notifications when status changes</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+              <div>
+                <div style="font-size: 14px; font-weight: 600;">SLA Countdown Reminders</div>
+                <div style="font-size: 12px; color: var(--color-text-muted);">Get pinged if ticket resolution is nearing breach</div>
+              </div>
+              <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div style="border-top: 1px solid var(--color-border); padding-top: 20px;">
+            <div style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 12px;">Active Role Session</div>
+            <div style="display: flex; gap: 8px;">
+              <a href="../login.html" class="btn btn-secondary" style="font-size: 13px;">Switch Role</a>
+              <button class="btn btn-outline" onclick="AUTH.logout()" style="font-size: 13px;">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+</body>
+</html>

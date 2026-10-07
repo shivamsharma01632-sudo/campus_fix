@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Facility Issue — CampusFix</title>
+  <meta name="description" content="Submit a detailed campus maintenance request with AI assistance.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require STUDENT session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('STUDENT');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center">
+          <a href="dashboard.html" class="nav-pill-btn">Report</a>
+          <a href="my-tickets.html" class="nav-pill-btn">My tickets</a>
+          <a href="profile.html" class="nav-pill-btn">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Test12345</span>
+            <span class="user-badge-role" id="nav-user-role">Student</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Submit Maintenance Request</h1>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px;">
+        <!-- Left: Detailed Form -->
+        <div class="card">
+          <form id="detailed-report-form">
+            <div class="form-group">
+              <label class="form-label">Issue Summary / Description</label>
+              <textarea id="issue-desc" class="form-textarea" placeholder="Describe what is broken, e.g. Projector in Room 304 isn't working..." rows="4" required></textarea>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div class="form-group">
+                <label class="form-label">Location</label>
+                <input type="text" id="issue-location" class="form-input" placeholder="e.g. Block A, Room 304" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="issue-category" class="form-select">
+                  <option value="AV / Electrical">AV / Electrical</option>
+                  <option value="Plumbing">Plumbing & Water</option>
+                  <option value="HVAC">HVAC & Climate</option>
+                  <option value="Network">Campus IT & Network</option>
+                  <option value="Carpentry">Carpentry & Civil</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Attach Photo (Optional)</label>
+              <div class="file-upload-box" id="drop-zone">
+                <img src="../../assets/icons/image.svg" class="icon icon-lg" style="margin: 0 auto 8px auto; opacity: 0.6;" alt="">
+                <p style="font-size: 13.5px; font-weight: 600; color: var(--color-text-main);">Click or drag image here</p>
+                <p style="font-size: 12px; color: var(--color-text-muted);">PNG, JPG up to 10MB</p>
+                <input type="file" id="file-input" accept="image/*" style="display: none;">
+              </div>
+              <div id="file-name-preview" style="font-size: 13px; color: var(--color-primary); font-weight: 600; margin-top: 6px;"></div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full" style="height: 48px; font-size: 15px;">
+              Submit Issue to Maintenance Desk
+            </button>
+          </form>
+        </div>
+
+        <!-- Right: AI Live Assistant Card -->
+        <div class="card" style="background-color: #fafbfc;">
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            <img src="../../assets/icons/sparkles.svg" class="icon icon-sm" alt="">
+            <span>AI Real-time Inspector</span>
+          </h3>
+          <p style="font-size: 13px; color: var(--color-text-muted); margin-bottom: 20px;">
+            As you type, CampusFix AI infers department routing, priority score, and SLA target.
+          </p>
+
+          <div id="ai-inspection-results" style="display: flex; flex-direction: column; gap: 12px;">
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Estimated SLA:</span>
+              <span class="triage-metric-value" id="ai-sla-preview">4 Hours</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Predicted Priority:</span>
+              <span class="badge badge-high" id="ai-priority-preview">High</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Assigned Dept:</span>
+              <span class="triage-metric-value" id="ai-dept-preview">Electrical Maintenance</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/student/report-issue.js"></script>
+</body>
+</html>

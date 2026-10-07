@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assigned Tickets — CampusFix Technician</title>
+  <meta name="description" content="Manage your assigned maintenance tasks and repair dispatches.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/technician.css">
+  <link rel="stylesheet" href="../../css/tickets.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require TECHNICIAN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('TECHNICIAN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center">
+          <a href="dashboard.html" class="nav-pill-btn">Dashboard</a>
+          <a href="assigned-tickets.html" class="nav-pill-btn active">My Tasks</a>
+          <a href="profile.html" class="nav-pill-btn">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Demo Staff</span>
+            <span class="user-badge-role" id="nav-user-role">Staff</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Assigned Tickets</h1>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-toolbar">
+        <div class="search-input-wrapper">
+          <img src="../../assets/icons/search.svg" class="icon icon-sm" alt="">
+          <input type="text" id="tech-search-input" class="form-input" placeholder="Search tasks by ID, room, or problem...">
+        </div>
+
+        <div class="segmented-control" id="tech-status-pills">
+          <button class="seg-btn active" data-status="ALL">All Active</button>
+          <button class="seg-btn" data-status="In Progress">In Progress</button>
+          <button class="seg-btn" data-status="Open">Pending Pickup</button>
+          <button class="seg-btn" data-status="Resolved">Resolved</button>
+        </div>
+      </div>
+
+      <!-- Task Cards List -->
+      <div id="tech-assigned-list">
+        <!-- Rendered by js/technician/assigned-tickets.js -->
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/technician/assigned-tickets.js"></script>
+</body>
+</html>

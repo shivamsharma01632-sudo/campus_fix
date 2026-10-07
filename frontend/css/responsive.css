@@ -1,0 +1,100 @@
+/* Responsive rules ensuring zero horizontal overflow and flawless mobile UX */
+
+@media (max-width: 1200px) {
+  .campusfix-page {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 992px) {
+  .admin-stats-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .tech-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .triage-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .campusfix-page {
+    padding: 10px;
+  }
+  
+  .campusfix-card-canvas {
+    padding: 20px 16px;
+    border-radius: var(--radius-lg);
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .stat-card-number {
+    font-size: 28px;
+  }
+
+  .admin-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tech-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .table-container {
+    border-radius: var(--radius-md);
+  }
+
+  .role-cards-container {
+    flex-direction: column !important;
+  }
+  
+  .filter-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-input-wrapper {
+    width: 100%;
+  }
+
+  .navbar {
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-stats-row {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar-right {
+    gap: 8px;
+  }
+
+  .user-badge {
+    display: none;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+  .prompt-chips-wrapper {
+    gap: 6px;
+  }
+
+  .prompt-chip {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

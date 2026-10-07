@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Technician Dashboard — CampusFix</title>
+  <meta name="description" content="Live maintenance operations queue, SLA tracking, and technician dispatch.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/technician.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require TECHNICIAN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('TECHNICIAN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar matching Screenshot 4 -->
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <!-- Center Active Role Badge -->
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-primary" style="padding: 7px 18px; font-size: 13.5px; border-radius: var(--radius-pill); gap: 6px;">
+            <img src="../../assets/icons/dashboard.svg" class="icon icon-sm" style="filter: brightness(0) invert(1);" alt="">
+            <span>Technician Dashboard</span>
+          </a>
+          <a href="assigned-tickets.html" class="nav-pill-btn">My Tasks</a>
+          <a href="profile.html" class="nav-pill-btn">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Demo Staff</span>
+            <span class="user-badge-role" id="nav-user-role">Staff</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Dismissible Alert Banner matching Screenshot 4 -->
+      <div class="alert-banner">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="../../assets/icons/sparkles.svg" class="icon icon-sm" alt="">
+          <span>Tickets appear here live the moment a student reports them.</span>
+        </div>
+        <button class="close-btn" aria-label="Dismiss banner">
+          <img src="../../assets/icons/close.svg" class="icon icon-sm" alt="x">
+        </button>
+      </div>
+
+      <!-- Header: Operations Overview with Live Pulse -->
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Operations overview</h1>
+          <p class="page-subtitle" style="margin-bottom: 0;">Here's how campus maintenance is running right now.</p>
+        </div>
+        <div class="live-indicator">
+          <span class="pulse-dot"></span>
+          <span>Live</span>
+        </div>
+      </div>
+
+      <!-- Overview Grid: 4 Metric Cards (Left) + Workload & Alerts (Right) -->
+      <div class="tech-overview-grid">
+        <!-- 4 Metric Cards (2x2) -->
+        <div class="tech-stats-grid">
+          <!-- Open Queue -->
+          <div class="stat-card" onclick="window.location.href='assigned-tickets.html'" style="cursor: pointer;">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Open Queue</span>
+              <div class="icon-circle sm">
+                <img src="../../assets/icons/inbox.svg" class="icon icon-sm" alt="">
+              </div>
+            </div>
+            <div class="stat-card-number" id="tech-stat-open">3</div>
+            <div class="stat-card-footer">
+              <span>1 in progress</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- SLA Breached -->
+          <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='assigned-tickets.html?filter=overdue'">
+            <div class="stat-card-header">
+              <span class="stat-card-title">SLA Breached</span>
+              <div class="icon-circle sm">
+                <img src="../../assets/icons/sla.svg" class="icon icon-sm" alt="">
+              </div>
+            </div>
+            <div class="stat-card-number" id="tech-stat-sla" style="color: #b91c1c;">3</div>
+            <div class="stat-card-footer">
+              <span>Past due, needs attention</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Chronic Issues -->
+          <div class="stat-card" style="cursor: pointer;" onclick="window.location.href='assigned-tickets.html?filter=chronic'">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Chronic Issues</span>
+              <div class="icon-circle sm">
+                <img src="../../assets/icons/chronic-issues.svg" class="icon icon-sm" alt="">
+              </div>
+            </div>
+            <div class="stat-card-number" id="tech-stat-chronic">2</div>
+            <div class="stat-card-footer">
+              <span>&ge;3 repeats in 30 days</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+
+          <!-- Resolved Today -->
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Resolved Today</span>
+              <div class="icon-circle sm">
+                <img src="../../assets/icons/check.svg" class="icon icon-sm" alt="">
+              </div>
+            </div>
+            <div class="stat-card-number" id="tech-stat-resolved">0</div>
+            <div class="stat-card-footer">
+              <span>Last 24 hours</span>
+              <span class="arrow">&rarr;</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Side: Department Workload & Recurrence Alerts -->
+        <div class="tech-side-cards">
+          <!-- Department Workload -->
+          <div class="card" style="padding: 20px;">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 16px;">Department workload</h3>
+            
+            <div class="workload-item">
+              <div class="workload-header">
+                <span>Plumbing</span>
+                <span>1</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 35%;"></div>
+              </div>
+            </div>
+
+            <div class="workload-item">
+              <div class="workload-header">
+                <span>HVAC</span>
+                <span>1</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 35%;"></div>
+              </div>
+            </div>
+
+            <div class="workload-item" style="margin-bottom: 0;">
+              <div class="workload-header">
+                <span>IT & AV</span>
+                <span>1</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 35%;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recurrence Alerts matching Screenshot 4 -->
+          <div class="card" style="padding: 20px;">
+            <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <span>Recurrence alerts</span>
+              <span class="badge badge-high" style="padding: 2px 7px; font-size: 11px;">2</span>
+            </h3>
+
+            <div class="recurrence-alert-item">
+              <div class="recurrence-alert-head">
+                <img src="../../assets/icons/alert.svg" class="icon icon-sm" alt="">
+                <span>Projector &bull; Room 304</span>
+              </div>
+              <div class="recurrence-alert-desc">
+                4 reports in 30 days &mdash; consider replacement or root-cause fix
+              </div>
+            </div>
+
+            <div class="recurrence-alert-item">
+              <div class="recurrence-alert-head">
+                <img src="../../assets/icons/alert.svg" class="icon icon-sm" alt="">
+                <span>Projector &bull; Room 304</span>
+              </div>
+              <div class="recurrence-alert-desc">
+                3 reports in 30 days &mdash; consider replacement or root-cause fix
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Section: Live Queue matching Screenshot 4 -->
+      <section>
+        <div class="live-queue-header">
+          <h2 class="section-title">Live queue</h2>
+          <div class="queue-filter-pills" id="queue-filter-group">
+            <span class="queue-pill active" data-dept="ALL">All</span>
+            <span class="queue-pill" data-dept="Plumbing">Plumbing</span>
+            <span class="queue-pill" data-dept="HVAC">HVAC</span>
+            <span class="queue-pill" data-dept="IT & AV">IT & AV</span>
+          </div>
+        </div>
+
+        <div id="tech-queue-list">
+          <!-- Rendered via js/technician/dashboard.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/technician/dashboard.js"></script>
+</body>
+</html>

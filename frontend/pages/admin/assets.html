@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assets & IoT Equipment — CampusFix Admin</title>
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/tables.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn active">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn">Settings</a>
+      </div>
+
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">Campus Assets &amp; Physical Plant</h1>
+        </div>
+        <button class="btn btn-primary" onclick="UTILS.openModal('add-asset-modal')">
+          <img src="../../assets/icons/plus.svg" class="icon icon-sm" style="filter: brightness(0) invert(1);" alt="">
+          <span>Register New Asset</span>
+        </button>
+      </div>
+
+      <!-- Assets Table -->
+      <div class="table-container" style="margin-top: 20px;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>ASSET ID</th>
+              <th>EQUIPMENT NAME</th>
+              <th>CATEGORY</th>
+              <th>CAMPUS LOCATION</th>
+              <th>30-DAY FAILURES</th>
+              <th>LAST SERVICED</th>
+              <th>HEALTH STATUS</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="assets-tbody">
+            <!-- Rendered by js/admin/assets.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Add Asset Modal -->
+      <div class="modal-overlay" id="add-asset-modal">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title">Register Physical Plant Asset</h3>
+            <button class="modal-close-btn" onclick="UTILS.closeModal('add-asset-modal')">
+              <img src="../../assets/icons/close.svg" class="icon icon-sm" alt="x">
+            </button>
+          </div>
+          <form id="add-asset-form">
+            <div class="modal-body">
+              <div class="form-group">
+                <label class="form-label">Asset Name</label>
+                <input type="text" id="asset-name-input" class="form-input" placeholder="e.g. Dell Projector 4K Ultra" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Location</label>
+                <input type="text" id="asset-loc-input" class="form-input" placeholder="e.g. Block B, Auditorium 1" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Category</label>
+                <select id="asset-cat-input" class="form-select">
+                  <option value="AV Equipment">AV Equipment</option>
+                  <option value="HVAC">HVAC & Chillers</option>
+                  <option value="Networking">Networking & Telephony</option>
+                  <option value="Plumbing">Plumbing & Pumps</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="UTILS.closeModal('add-asset-modal')">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Asset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/admin/assets.js"></script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+.tech-overview-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.tech-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.tech-side-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Recurrence alert list items */
+.recurrence-alert-item {
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background-color: #fff9f9;
+  border: 1px solid #fee2e2;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.recurrence-alert-item:last-child {
+  margin-bottom: 0;
+}
+
+.recurrence-alert-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #b91c1c;
+}
+
+.recurrence-alert-head .icon {
+  color: #ef4444;
+}
+
+.recurrence-alert-desc {
+  font-size: 12px;
+  color: #7f1d1d;
+  margin-left: 24px;
+  line-height: 1.4;
+}
+
+/* Live Queue items (matching Screenshot 4) */
+.live-queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.queue-filter-pills {
+  display: inline-flex;
+  gap: 6px;
+  background-color: var(--color-bg-page);
+  padding: 4px;
+  border-radius: var(--radius-pill);
+}
+
+.queue-pill {
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.queue-pill.active {
+  background-color: #18181b;
+  color: #ffffff;
+}
+
+.queue-item-card {
+  background-color: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all var(--transition-fast);
+}
+
+.queue-item-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: var(--shadow-sm);
+}
+
+.queue-item-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.queue-item-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--color-text-muted);
+}
+
+.queue-item-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-heading);
+}
+
+.queue-item-desc {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.queue-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 960px) {
+  .tech-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .queue-item-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .queue-item-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}

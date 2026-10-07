@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard — CampusFix</title>
+  <meta name="description" content="Report and track campus maintenance requests with AI triage.">
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/tickets.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require STUDENT session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('STUDENT');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar matching Screenshot 3 -->
+      <nav class="navbar">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <!-- Center Pills -->
+        <div class="navbar-center">
+          <a href="dashboard.html" class="nav-pill-btn active">Report</a>
+          <a href="my-tickets.html" class="nav-pill-btn">My tickets</a>
+          <a href="profile.html" class="nav-pill-btn">Profile</a>
+        </div>
+
+        <!-- User Information & Sign Out -->
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Test12345</span>
+            <span class="user-badge-role" id="nav-user-role">Student</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+          <button class="nav-menu-toggle" aria-label="Toggle Menu">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </nav>
+
+      <!-- Dashboard Header -->
+      <div class="dashboard-header">
+        <div>
+          <h1 class="page-title">What needs fixing?</h1>
+          <p class="page-subtitle" style="margin-bottom: 0;">Write it like a text message. We'll handle the rest.</p>
+        </div>
+        <div class="live-indicator">
+          <span class="pulse-dot"></span>
+          <span>AI Auto-Triage Active</span>
+        </div>
+      </div>
+
+      <!-- Two-column Triage Grid matching Screenshot 3 -->
+      <div class="triage-grid">
+        <!-- Left: Issue Report Form -->
+        <div class="triage-card">
+          <div class="triage-card-header">
+            <span class="triage-card-title">Your report</span>
+            <span class="triage-card-badge">Natural language</span>
+          </div>
+
+          <form id="triage-report-form" style="display: flex; flex-direction: column; flex: 1;">
+            <textarea 
+              id="report-input-text" 
+              class="form-textarea" 
+              placeholder="e.g. Projector in Room 304 isn't working"
+              style="flex: 1; min-height: 110px;"
+              required></textarea>
+
+            <!-- Quick Preset Chips -->
+            <div class="prompt-chips-wrapper">
+              <span class="prompt-chip" data-prompt="Projector in Room 304 isn't working">Projector in Room 304 isn't working</span>
+              <span class="prompt-chip" data-prompt="Water leaking under the sink in 2nd floor washroom, Block A">Water leaking under the sink in 2nd floor washroom, Block A</span>
+              <span class="prompt-chip" data-prompt="AC in lab 110 blowing warm air during exams">AC in lab 110 blowing warm air during exams</span>
+            </div>
+
+            <!-- Optional Image Upload Preview Bar -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 18px;">
+              <label for="optional-image-upload" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--color-text-muted); cursor: pointer;">
+                <img src="../../assets/icons/image.svg" class="icon icon-sm" alt="">
+                <span id="image-label-text">Attach photo (optional)</span>
+                <input type="file" id="optional-image-upload" accept="image/*" style="display: none;">
+              </label>
+
+              <!-- Amber Submit Button -->
+              <button type="submit" class="btn btn-primary" id="btn-submit-triage" style="padding: 10px 24px;">
+                <span>Submit</span>
+                <img src="../../assets/icons/arrow-right.svg" class="icon icon-sm" style="filter: brightness(0) invert(1);" alt="">
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: AI Triage Output -->
+        <div class="triage-card">
+          <div class="triage-card-header">
+            <span class="triage-card-title">AI Triage</span>
+            <span class="badge badge-tag" id="triage-status-badge">Ready</span>
+          </div>
+
+          <!-- Empty placeholder box matching Screenshot 3 -->
+          <div class="triage-empty-box" id="triage-placeholder">
+            <p>Submit a report to see how it gets categorized, located, prioritized and routed.</p>
+          </div>
+
+          <!-- Live Analyzed Breakdown Result -->
+          <div class="triage-result-box" id="triage-result">
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Issue:</span>
+              <span class="triage-metric-value" id="res-issue">Projector not working</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Category:</span>
+              <span class="badge badge-tag" id="res-category">AV Equipment</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Location:</span>
+              <span class="triage-metric-value" id="res-location">Block A, Room 304</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Department:</span>
+              <span class="triage-metric-value" id="res-department">Electrical Maintenance</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Priority:</span>
+              <span class="badge badge-high" id="res-priority">High</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">SLA Target:</span>
+              <span class="triage-metric-value" id="res-sla">4 Hours</span>
+            </div>
+            <div class="triage-metric-row">
+              <span class="triage-metric-label">Auto-Routed Tech:</span>
+              <span class="triage-metric-value" id="res-tech" style="color: var(--color-brand-purple);">Marcus Vance</span>
+            </div>
+
+            <div style="margin-top: 18px; display: flex; justify-content: flex-end; gap: 10px;">
+              <a href="#" id="view-created-ticket-btn" class="btn btn-primary" style="font-size: 13px; padding: 8px 18px;">
+                View Ticket Details &rarr;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Recently Reported Section matching Screenshot 3 -->
+      <section>
+        <div class="section-header">
+          <h2 class="section-title">Recently reported on campus</h2>
+          <a href="my-tickets.html" class="section-link">View all my tickets &rarr;</a>
+        </div>
+
+        <div class="tickets-grid" id="student-recent-tickets">
+          <!-- Dynamically loaded from js/student/dashboard.js -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/student/dashboard.js"></script>
+</body>
+</html>

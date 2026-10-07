@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Facility Dashboard — CampusFix Admin</title>
+  <link rel="stylesheet" href="../../css/global.css">
+  <link rel="stylesheet" href="../../css/navbar.css">
+  <link rel="stylesheet" href="../../css/sidebar.css">
+  <link rel="stylesheet" href="../../css/forms.css">
+  <link rel="stylesheet" href="../../css/cards.css">
+  <link rel="stylesheet" href="../../css/tables.css">
+  <link rel="stylesheet" href="../../css/admin.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <!-- Role Guard: Require ADMIN session before displaying protected content -->
+  <script src="../../js/config.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script>
+    AUTH.requireRole('ADMIN');
+  </script>
+</head>
+<body>
+  <div class="campusfix-page" style="max-width: 1360px;">
+    <main class="campusfix-card-canvas">
+      <!-- Navbar matching Screenshot 5 -->
+      <nav class="navbar" style="padding-bottom: 16px;">
+        <a href="../../index.html" class="brand-wrapper">
+          <img src="../../assets/icons/logo.svg" alt="CampusFix Logo" class="brand-logo-img">
+          <span class="brand-title">CampusFix</span>
+        </a>
+
+        <!-- Center Admin Badge matching Screenshot 5 -->
+        <div class="navbar-center" style="display: flex;">
+          <a href="dashboard.html" class="btn btn-secondary" style="font-size: 13px; padding: 6px 18px; border-radius: var(--radius-pill);">
+            Admin Dashboard
+          </a>
+        </div>
+
+        <div class="navbar-right">
+          <div class="user-badge">
+            <span class="user-badge-name" id="nav-user-name">Chief Admin</span>
+            <span class="user-badge-role" id="nav-user-role">Administrator</span>
+          </div>
+          <a href="#" class="nav-signout-btn">
+            <img src="../../assets/icons/signout.svg" class="icon icon-sm" alt="">
+            <span>Sign out</span>
+          </a>
+        </div>
+      </nav>
+
+      <!-- Dismissible Pink Alert Banner matching Screenshot 5 -->
+      <div class="alert-banner">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span>CampusFix AI Auto-Routing is operating at 98.4% dispatch accuracy.</span>
+        </div>
+        <button class="close-btn" aria-label="Dismiss banner">
+          <img src="../../assets/icons/close.svg" class="icon icon-sm" alt="x">
+        </button>
+      </div>
+
+      <!-- Admin Header matching Screenshot 5 -->
+      <div class="dashboard-header" style="align-items: center;">
+        <div>
+          <h1 class="page-title">Executive Facility Dashboard</h1>
+        </div>
+        <label class="switch" title="Toggle Auto-Refresh & AI Auto-Triage">
+          <input type="checkbox" checked>
+    
+        </label>
+      </div>
+
+      <!-- Quick Section Subnav Pills for fast navigation across all admin views -->
+      <div style="display: flex; gap: 8px; margin-bottom: 24px; overflow-x: auto; padding-bottom: 4px;">
+        <a href="dashboard.html" class="nav-pill-btn active">Overview</a>
+        <a href="tickets.html" class="nav-pill-btn">Tickets</a>
+        <a href="technicians.html" class="nav-pill-btn">Technicians</a>
+        <a href="departments.html" class="nav-pill-btn">Departments</a>
+        <a href="assets.html" class="nav-pill-btn">Assets & IoT</a>
+        <a href="analytics.html" class="nav-pill-btn">Analytics</a>
+        <a href="chronic-issues.html" class="nav-pill-btn">Chronic Issues</a>
+        <a href="sla-monitor.html" class="nav-pill-btn">SLA Monitor</a>
+        <a href="settings.html" class="nav-pill-btn">Settings</a>
+      </div>
+
+      <!-- Row 1: 5 Stat Cards matching Screenshot 5 -->
+      <div class="admin-stats-row">
+        <!-- Total Tickets -->
+        <div class="stat-card" onclick="window.location.href='tickets.html'" style="cursor: pointer;">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Total Tickets</span>
+          </div>
+          <div class="stat-card-number" id="admin-total-tickets">5</div>
+          <div class="stat-card-footer">
+            <span>All campus tickets</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- Open Queue -->
+        <div class="stat-card" onclick="window.location.href='tickets.html?status=Open'" style="cursor: pointer;">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Open Queue</span>
+            <div class="icon-circle sm amber">
+              <img src="../../assets/icons/inbox.svg" class="icon icon-sm" alt="">
+            </div>
+          </div>
+          <div class="stat-card-number" id="admin-open-queue">3</div>
+          <div class="stat-card-footer">
+            <span>1 in progress</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- Resolved -->
+        <div class="stat-card" onclick="window.location.href='tickets.html?status=Resolved'" style="cursor: pointer;">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Resolved</span>
+            <div class="icon-circle sm green">
+              <img src="../../assets/icons/check.svg" class="icon icon-sm" alt="">
+            </div>
+          </div>
+          <div class="stat-card-number" id="admin-resolved-count">2</div>
+          <div class="stat-card-footer">
+            <span>Completed repairs</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- Overdue / Risk -->
+        <div class="stat-card" onclick="window.location.href='sla-monitor.html'" style="cursor: pointer;">
+          <div class="stat-card-header">
+            <span class="stat-card-title">Overdue / Risk</span>
+            <div class="icon-circle sm red">
+              <img src="../../assets/icons/alert.svg" class="icon icon-sm" alt="">
+            </div>
+          </div>
+          <div class="stat-card-number" id="admin-overdue-count" style="color: #b91c1c;">3</div>
+          <div class="stat-card-footer">
+            <span>SLA Breaches</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+
+        <!-- High Priority -->
+        <div class="stat-card" onclick="window.location.href='tickets.html?priority=High'" style="cursor: pointer;">
+          <div class="stat-card-header">
+            <span class="stat-card-title">High Priority</span>
+            <div class="icon-circle sm amber">
+              <img src="../../assets/icons/lightning.svg" class="icon icon-sm" alt="">
+            </div>
+          </div>
+          <div class="stat-card-number" id="admin-high-prio-count">3</div>
+          <div class="stat-card-footer">
+            <span>Critical lecture/lab</span>
+            <span class="arrow">&rarr;</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Mid Row matching Screenshot 5 -->
+      <div class="admin-mid-row">
+        <!-- Technician Workload & Utilization -->
+        <div class="admin-panel-card">
+          <div class="admin-panel-header">
+            <span class="admin-panel-title">Technician Workload &amp; Utilization</span>
+            <a href="technicians.html" class="admin-panel-link">Manage Roster &rarr;</a>
+          </div>
+
+          <div id="tech-workload-bars">
+            <!-- Marcus Vance -->
+            <div class="workload-item">
+              <div class="workload-header">
+                <span class="font-bold">Marcus Vance <span class="text-muted" style="font-weight: normal;">(Electrical Maintenance)</span></span>
+                <span>2 / 5 Active Tasks</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 40%;"></div>
+              </div>
+            </div>
+
+            <!-- Elena Rostova -->
+            <div class="workload-item">
+              <div class="workload-header">
+                <span class="font-bold">Elena Rostova <span class="text-muted" style="font-weight: normal;">(Civil &amp; Plumbing)</span></span>
+                <span>3 / 5 Active Tasks</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill amber" style="width: 60%;"></div>
+              </div>
+            </div>
+
+            <!-- David Chen -->
+            <div class="workload-item">
+              <div class="workload-header">
+                <span class="font-bold">David Chen <span class="text-muted" style="font-weight: normal;">(HVAC Operations)</span></span>
+                <span>1 / 5 Active Tasks</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 20%;"></div>
+              </div>
+            </div>
+
+            <!-- Sarah Jenkins -->
+            <div class="workload-item" style="margin-bottom: 0;">
+              <div class="workload-header">
+                <span class="font-bold">Sarah Jenkins <span class="text-muted" style="font-weight: normal;">(Campus IT &amp; Networks)</span></span>
+                <span>2 / 5 Active Tasks</span>
+              </div>
+              <div class="workload-bar-bg">
+                <div class="workload-bar-fill" style="width: 40%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chronic Infrastructure Alerts matching Screenshot 5 -->
+        <div class="admin-panel-card">
+          <div class="admin-panel-header">
+            <span class="admin-panel-title">Chronic Infrastructure Alerts</span>
+            <a href="chronic-issues.html" class="admin-panel-link">Full Report &rarr;</a>
+          </div>
+
+          <!-- Highlighted Alert Card -->
+          <div class="chronic-alert-card">
+            <div class="chronic-alert-title">Optoma Projector P-304</div>
+            <div class="chronic-alert-subtitle">7 failures in the last 30 days <span style="font-weight: normal; color: #881337;">(Room 304, Block A).</span></div>
+            
+            <div class="chronic-alert-box">
+              <strong>Recommendation:</strong> Schedule preventive ballast replacement or full unit decommission.
+            </div>
+
+            <div class="chronic-alert-footer">
+              <span class="chronic-alert-meta">Next preventive audit: Friday, 10:00 AM</span>
+              <a href="assets.html?asset=AST-101" class="btn btn-purple" style="font-size: 12.5px; padding: 6px 16px;">
+                Inspect Equipment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3: Incidents Table matching Screenshot 5 -->
+      <section>
+        <div class="admin-panel-header" style="margin-bottom: 14px;">
+          <h2 class="section-title">Live Campus Incidents &amp; Dispatches</h2>
+          <div style="display: flex; gap: 8px;">
+            <a href="tickets.html" class="admin-panel-link" style="display: inline-flex; align-items: center; gap: 6px;">
+              <img src="../../assets/icons/filter.svg" class="icon icon-sm" alt="">
+              <span>Filter &amp; Export &rarr;</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="data-table" id="admin-incidents-table">
+            <thead>
+              <tr>
+                <th>TICKET</th>
+                <th>ISSUE</th>
+                <th>CATEGORY</th>
+                <th>LOCATION</th>
+                <th>DEPARTMENT</th>
+                <th>ASSIGNED TECH</th>
+                <th>STATUS</th>
+                <th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody id="admin-incidents-tbody">
+              <!-- Rendered via js/admin/dashboard.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../../js/config.js"></script>
+  <script src="../../js/api.js"></script>
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/navigation.js"></script>
+  <script src="../../js/admin/dashboard.js"></script>
+</body>
+</html>
